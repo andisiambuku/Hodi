@@ -138,6 +138,19 @@ Map<String, EntitySchema> buildSchemas(AppDatabase db) => {
         FieldType.text,
         label: 'household',
       ),
+      'phoneNumber': FieldSpec(
+        'phone_number',
+        FieldType.text,
+        label: 'phone number',
+      ),
+      // Two nurses can flip this offline. Treated as clinical so the loser of
+      // a concurrent change is always shown a card, never silently overwritten.
+      'accountStatus': FieldSpec(
+        'account_status',
+        FieldType.text,
+        label: 'account status',
+        clinical: true,
+      ),
     },
     createOnly: const {},
     subjectSql: 'SELECT full_name AS n FROM patients WHERE id = ?',

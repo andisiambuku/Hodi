@@ -65,6 +65,8 @@ String localizedFieldLabel(
   'visit.patientName' => l.fieldPatientName,
   'patient.fullName' => l.fieldName,
   'patient.householdId' => l.fieldHousehold,
+  'patient.phoneNumber' => l.fieldPhoneNumber,
+  'patient.accountStatus' => l.fieldAccountStatus,
   'household.headName' => l.fieldHeadOfHousehold,
   'household.location' => l.fieldLocation,
   _ => fallback,

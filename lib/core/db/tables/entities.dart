@@ -29,6 +29,10 @@ class Households extends Table with SyncColumns {
 class Patients extends Table with SyncColumns {
   TextColumn get fullName => text()();
   TextColumn get householdId => text().nullable().references(Households, #id)();
+  TextColumn get phoneNumber => text().nullable()();
+  TextColumn get accountStatus => textEnum<AccountStatus>().withDefault(
+    Constant(AccountStatus.active.name),
+  )();
 }
 
 @TableIndex(name: 'visits_scheduled_at', columns: {#scheduledAt})

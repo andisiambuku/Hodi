@@ -69,6 +69,67 @@ void main() {
       },
     );
 
+    test('stores phone number and account status, and queues them', () async {
+      final id = await repo.register(
+        NewPatient(
+          fullName: 'Amina Wanjiru',
+          location: 'Kinangop',
+          phoneNumber: ' +254 712 345 678 ',
+          accountStatus: AccountStatus.inactive,
+        ),
+      );
+      final patient = await (db.select(
+        db.patients,
+      )..where((p) => p.id.equals(id))).getSingle();
+      expect(patient.phoneNumber, '+254 712 345 678');
+      expect(patient.accountStatus, AccountStatus.inactive);
+      final entry = (await outbox.watchPending().first).last;
+      expect(entry.payload, contains('"phoneNumber"'));
+      expect(entry.payload, contains('inactive'));
+    });
+
+    test('phone is optional and status defaults to active', () async {
+      final id = await repo.register(
+        NewPatient(fullName: 'Grace', location: 'Nyeri', phoneNumber: ' '),
+      );
+      final patient = await (db.select(
+        db.patients,
+      )..where((p) => p.id.equals(id))).getSingle();
+      expect(patient.phoneNumber, isNull);
+      expect(patient.accountStatus, AccountStatus.active);
+    });
+
+    test('rejects a malformed phone number', () async {
+      for (final bad in ['abc', '12', '0712-abc', '1234567890123456']) {
+        await expectLater(
+          repo.register(
+            NewPatient(fullName: 'G', location: 'N', phoneNumber: bad),
+          ),
+          throwsArgumentError,
+          reason: bad,
+        );
+      }
+    });
+
+    test(
+      'setAccountStatus updates the row and the unsent patient entry',
+      () async {
+        final id = await repo.register(
+          NewPatient(fullName: 'Grace', location: 'Nyeri'),
+        );
+        await repo.setAccountStatus(id, AccountStatus.inactive);
+        final patient = await (db.select(
+          db.patients,
+        )..where((p) => p.id.equals(id))).getSingle();
+        expect(patient.accountStatus, AccountStatus.inactive);
+        final entries = await outbox.watchPending().first;
+        // Still unsent, so the change folds into the pending add.
+        expect(entries.map((e) => e.entityType), ['household', 'patient']);
+        expect(entries.last.payload, contains('inactive'));
+        expect(entries.last.payload, isNot(contains('"v":"active"')));
+      },
+    );
+
     test('head of household defaults to the patient', () async {
       final id = await repo.register(
         NewPatient(fullName: 'Grace Njeri', headName: '  ', location: 'Nyeri'),
@@ -163,6 +224,20 @@ void main() {
       await tester.pump();
       expect(saveButton().onPressed, isNotNull);
 
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Phone number'),
+        'abc',
+      );
+      await tester.pump();
+      expect(saveButton().onPressed, isNull, reason: 'phone must be valid');
+      await tester.enterText(
+        find.widgetWithText(TextField, 'Phone number'),
+        '0712 345 678',
+      );
+      await tester.tap(find.text('Inactive'));
+      await tester.pump();
+      expect(saveButton().onPressed, isNotNull);
+
       await tester.tap(find.widgetWithText(FilledButton, 'Save patient'));
       await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 100)),
@@ -170,6 +245,8 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Amina Wanjiru'), findsOneWidget);
+      expect(find.text('0712 345 678'), findsOneWidget);
+      expect(find.text('Inactive'), findsOneWidget);
       expect(find.textContaining('No patients yet'), findsNothing);
       await shutDown(tester);
     });

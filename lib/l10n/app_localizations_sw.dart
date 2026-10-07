@@ -697,4 +697,51 @@ class AppLocalizationsSw extends AppLocalizations {
   @override
   String get noPatientsYet =>
       'Hakuna wagonjwa bado. Sajili mgonjwa wako wa kwanza kuanza.';
+
+  @override
+  String get fieldPhoneNumber => 'Namba ya simu';
+
+  @override
+  String get fieldPhoneNumberHint => 'Si lazima';
+
+  @override
+  String get phoneNumberInvalid =>
+      'Weka namba sahihi ya simu, mf. 0712 345 678';
+
+  @override
+  String get fieldAccountStatus => 'Hali ya akaunti';
+
+  @override
+  String get statusActive => 'Hai';
+
+  @override
+  String get statusInactive => 'Haifanyi kazi';
+
+  @override
+  String markInactiveTitle(String name) {
+    return 'Weka $name kama hafanyi kazi?';
+  }
+
+  @override
+  String markActiveTitle(String name) {
+    return 'Weka $name kama yuko hai?';
+  }
+
+  @override
+  String get markStatusBody =>
+      'Hii inahifadhiwa kwenye simu na kutumwa unaposawazisha.';
+
+  @override
+  String get markInactiveAction => 'Weka haifanyi kazi';
+
+  @override
+  String get markActiveAction => 'Weka hai';
+
+  @override
+  String patientStatusChanged(String name, String status) {
+    return '$name sasa ni $status.';
+  }
+
+  @override
+  String get noPhoneNumber => 'Hakuna namba ya simu';
 }

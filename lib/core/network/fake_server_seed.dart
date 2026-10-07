@@ -17,6 +17,8 @@ Future<void> mirrorLocalDataToFakeServer(
     server.load('patient', p.id, {
       'fullName': p.fullName,
       'householdId': p.householdId,
+      'phoneNumber': p.phoneNumber,
+      'accountStatus': p.accountStatus.name,
     });
   }
   for (final v in await db.select(db.visits).get()) {

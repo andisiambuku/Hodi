@@ -15,6 +15,7 @@ import 'package:hodi/core/sync/outbox_repository.dart';
 import 'package:hodi/core/sync/sync_engine.dart';
 import 'package:hodi/core/sync/sync_meta_repository.dart';
 import 'package:hodi/core/sync/sync_progress.dart';
+import 'package:hodi/features/patients/data/patient_repository.dart';
 import 'package:hodi/features/visits/data/visit_repository.dart';
 import 'package:hodi/features/visits/domain/new_visit.dart';
 
@@ -65,6 +66,7 @@ class SyncHarness {
   late RecordingApi api;
   late OutboxRepository outbox;
   late VisitRepository visits;
+  late PatientRepository patients;
   late VitalsRepository vitals;
   late ConflictRepository conflicts;
   late EntityStore store;
@@ -95,6 +97,7 @@ class SyncHarness {
     h.meta = SyncMetaRepository(h.db);
     h.store = EntityStore(h.db);
     h.visits = VisitRepository(h.db, h.outbox, h.clock, now: () => h.now);
+    h.patients = PatientRepository(h.db, h.outbox, h.clock, now: () => h.now);
     h.vitals = VitalsRepository(h.db, h.outbox, h.clock, now: () => h.now);
     h.conflicts = ConflictRepository(
       h.db,

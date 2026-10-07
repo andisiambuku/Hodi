@@ -1182,6 +1182,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No patients yet. Register your first patient to get started.'**
   String get noPatientsYet;
+
+  /// No description provided for @fieldPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get fieldPhoneNumber;
+
+  /// No description provided for @fieldPhoneNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get fieldPhoneNumberHint;
+
+  /// No description provided for @phoneNumberInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a valid phone number, e.g. 0712 345 678'**
+  String get phoneNumberInvalid;
+
+  /// No description provided for @fieldAccountStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Account status'**
+  String get fieldAccountStatus;
+
+  /// No description provided for @statusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get statusActive;
+
+  /// No description provided for @statusInactive.
+  ///
+  /// In en, this message translates to:
+  /// **'Inactive'**
+  String get statusInactive;
+
+  /// No description provided for @markInactiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark {name} inactive?'**
+  String markInactiveTitle(String name);
+
+  /// No description provided for @markActiveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark {name} active?'**
+  String markActiveTitle(String name);
+
+  /// No description provided for @markStatusBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This is saved on the phone and sent when you sync.'**
+  String get markStatusBody;
+
+  /// No description provided for @markInactiveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark inactive'**
+  String get markInactiveAction;
+
+  /// No description provided for @markActiveAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark active'**
+  String get markActiveAction;
+
+  /// No description provided for @patientStatusChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is now {status}.'**
+  String patientStatusChanged(String name, String status);
+
+  /// No description provided for @noPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'No phone number'**
+  String get noPhoneNumber;
 }
 
 class _AppLocalizationsDelegate

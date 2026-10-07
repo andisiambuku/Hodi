@@ -470,4 +470,41 @@ void main() {
       );
     });
   });
+
+  group('patient account status', () {
+    Future<Patient> patient() async =>
+        (await h.db.select(h.db.patients).get()).first;
+
+    for (final remoteWins in [true, false]) {
+      test('two nurses offline: ${remoteWins ? 'newer remote' : 'newer local'} '
+          'wins and the other gets a card', () async {
+        final p = await patient();
+        h.now = DateTime(2026, 10, 6, 9);
+        await h.patients.setAccountStatus(p.id, AccountStatus.inactive);
+        h.remoteNow = remoteWins ? later : DateTime(2026, 10, 6, 8);
+        h.api.injectRemoteEdit(
+          entityType: 'patient',
+          entityId: p.id,
+          fields: {'accountStatus': 'active'},
+        );
+
+        await h.engine.run();
+
+        final cards = await h.unresolved();
+        expect(cards, hasLength(1));
+        expect(
+          cards.single.kind,
+          remoteWins ? ConflictKind.replaced : ConflictKind.localKept,
+        );
+        expect(cards.single.fieldLabel, 'account status');
+        final row = await patient();
+        expect(
+          row.accountStatus,
+          remoteWins ? AccountStatus.active : AccountStatus.inactive,
+        );
+        expect(copyOf(cards.single).body, contains('Inactive'));
+        expect(copyOf(cards.single).body, contains('Active'));
+      });
+    }
+  });
 }

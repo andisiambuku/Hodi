@@ -1,5 +1,9 @@
 enum SyncState { synced, pending, syncing, failed, conflict }
 
+/// Whether a patient's account is in use. Nurses can set it independently
+/// offline, so it syncs like any other field and can conflict.
+enum AccountStatus { active, inactive }
+
 enum ChangeOp { added, edited, deleted }
 
 enum OutboxStatus { queued, inFlight, acked, failed }
