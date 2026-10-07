@@ -1,0 +1,529 @@
+{
+  "@@locale": "en",
+  "appTitle": "Hodi",
+  "navVisits": "Visits",
+  "navPatients": "Patients",
+  "navSync": "Sync",
+  "navProfile": "Profile",
+  "back": "Back",
+  "dismiss": "Dismiss",
+  "comingSoon": "Coming soon",
+  "statusOnline": "Online",
+  "statusOffline": "Offline",
+  "statusSyncing": "Syncing",
+  "statusPillSemantics": "Connection status: {status}",
+  "@statusPillSemantics": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "statusOnlineSentence": "All changes are saved to the server",
+  "statusOfflineSentence": "Changes are saved on this phone",
+  "statusSyncingSentence": "Sending {count, plural, =1{1 change} other{{count} changes}} to the server",
+  "@statusSyncingSentence": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "badgeSynced": "Synced",
+  "badgeWaiting": "Waiting",
+  "badgeNeedsReview": "Needs review",
+  "badgeFailed": "Failed",
+  "badgeSemantics": "Sync state: {state}",
+  "@badgeSemantics": {
+    "placeholders": {
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingMorning": "Good morning",
+  "greetingAfternoon": "Good afternoon",
+  "greetingEvening": "Good evening",
+  "homeGreeting": "{greeting}, Nurse {name}",
+  "@homeGreeting": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeSubtitle": "{subCounty}, {weekday}",
+  "@homeSubtitle": {
+    "placeholders": {
+      "subCounty": {
+        "type": "String"
+      },
+      "weekday": {
+        "type": "String"
+      }
+    }
+  },
+  "homeVisitsToday": "{count, plural, =1{1 visit today} other{{count} visits today}}",
+  "@homeVisitsToday": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homePendingLine": "{count, plural, =1{1 change saved on this phone, waiting to sync} other{{count} changes saved on this phone, waiting to sync}}",
+  "@homePendingLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeKeepWorking": "Keep working. Nothing is lost.",
+  "legendTitle": "What the status pill means",
+  "legendHide": "Hide",
+  "homeNextVisit": "Next visit",
+  "homeNoMoreVisits": "No more visits today.",
+  "homeTodaysVisits": "Today's visits",
+  "totalCount": "{count} total",
+  "@totalCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "visitsTitle": "Visits",
+  "visitsNone": "No visits scheduled today.",
+  "visitsReadError": "Couldn't read visits from this phone.",
+  "recordNewVisit": "Record new visit",
+  "offlineBannerTitle": "Loaded from this phone",
+  "lastSyncedAt": "Last synced with the server at {time}",
+  "@lastSyncedAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "notSyncedYet": "Not synced with the server yet",
+  "dbRecoveredTitle": "This phone's saved data couldn't be opened",
+  "dbRecoveredBody": "Your synced visits are being downloaded again.",
+  "visitCardSemantics": "{name}, {type}, {time}, {state}",
+  "@visitCardSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      },
+      "state": {
+        "type": "String"
+      }
+    }
+  },
+  "fieldPatient": "Patient",
+  "fieldVisitTypeInput": "Visit type",
+  "fieldTime": "Time",
+  "saveVisit": "Save visit",
+  "savedOnPhone": "Saved on this phone",
+  "visitTypeAntenatal": "Antenatal check",
+  "visitTypeBp": "BP follow-up",
+  "visitTypeImmunisation": "Child immunisation",
+  "visitTypeMalaria": "Malaria test",
+  "visitTypeHome": "Home visit: new household",
+  "visitTypeDiabetes": "Diabetes review",
+  "visitTitle": "Visit",
+  "visitGone": "This visit is no longer on the phone.",
+  "vitalsTitle": "Vitals",
+  "noVitals": "No vitals recorded yet.",
+  "recordVitals": "Record vitals",
+  "editVitals": "Edit vitals",
+  "saveVitals": "Save vitals",
+  "vitalsTemperature": "Temperature: {value}",
+  "@vitalsTemperature": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "vitalsBloodPressure": "Blood pressure: {systolic}/{diastolic} mmHg",
+  "@vitalsBloodPressure": {
+    "placeholders": {
+      "systolic": {
+        "type": "String"
+      },
+      "diastolic": {
+        "type": "String"
+      }
+    }
+  },
+  "inputTemperature": "Temperature (°C)",
+  "inputSystolic": "Systolic (mmHg)",
+  "inputDiastolic": "Diastolic (mmHg)",
+  "pendingTitle": "Pending changes",
+  "pendingBannerTitle": "{count, plural, =1{1 change waiting to sync} other{{count} changes waiting to sync}}",
+  "@pendingBannerTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pendingOldest": "Oldest change made {relative}",
+  "@pendingOldest": {
+    "placeholders": {
+      "relative": {
+        "type": "String"
+      }
+    }
+  },
+  "pendingFootnote": "Changes are kept on the phone, even if it restarts.",
+  "pendingEmpty": "Everything is synced",
+  "opAdded": "Added",
+  "opEdited": "Edited",
+  "opDeleted": "Deleted",
+  "entryRejected": "Rejected",
+  "entryRejectedSemantics": "Rejected by the server",
+  "entrySemantics": "{op}. {label}",
+  "@entrySemantics": {
+    "placeholders": {
+      "op": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "syncNow": "Sync now",
+  "syncSending": "Sending {done} of {total} changes",
+  "@syncSending": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "syncAutoCaption": "Sync starts on its own when you're back online.",
+  "relJustNow": "just now",
+  "relMinutes": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "@relMinutes": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relHours": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@relHours": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relDays": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+  "@relDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "labelVisit": "Visit",
+  "labelVitals": "Vitals",
+  "labelPatient": "Patient",
+  "labelHousehold": "Household",
+  "historyTitle": "Sync history",
+  "statSyncs": "Syncs",
+  "statDone": "Done",
+  "statMerged": "Merged",
+  "statFailed": "Failed",
+  "statSemantics": "{label}: {value}",
+  "@statSemantics": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "historyRecent": "Recent syncs",
+  "historyNone": "No syncs yet.",
+  "runComplete": "Sync complete",
+  "runMerge": "Sync with a merge",
+  "runFailed": "Sync failed",
+  "runSemantics": "{title}. {summary}. {when}. {chip}",
+  "@runSemantics": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "summary": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      },
+      "chip": {
+        "type": "String"
+      }
+    }
+  },
+  "runTimeToday": "Today {time}",
+  "@runTimeToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "runTimeYesterday": "Yesterday {time}",
+  "@runTimeYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "runTimeWeekday": "{day} {time}",
+  "@runTimeWeekday": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "runTimeDate": "{date} {time}",
+  "@runTimeDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "summarySent": "{sent, plural, =1{1 change sent} other{{sent} changes sent}}, {received} received",
+  "@summarySent": {
+    "placeholders": {
+      "sent": {
+        "type": "int"
+      },
+      "received": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryExtraMerged": "{count} merged",
+  "@summaryExtraMerged": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryExtraReview": "{count} to review",
+  "@summaryExtraReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryNothing": "Nothing new to sync",
+  "errNetwork": "Couldn't reach the server. Will retry.",
+  "errServer": "Server didn't respond. Will retry.",
+  "errLocal": "Something went wrong on this phone. Will retry.",
+  "errInterrupted": "Sync was interrupted. Will retry.",
+  "errRejectedDefault": "The server rejected this change.",
+  "hubTitle": "Sync",
+  "hubPendingRow": "Pending changes ({count})",
+  "@hubPendingRow": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hubWaiting": "Waiting to be sent",
+  "hubHistorySub": "Every sync, newest first",
+  "conflictReplacedTitle": "One of your edits was replaced",
+  "conflictReplacedBody": "You changed {subject}'s {field} to {local}. A newer edit from {source} set it to {remote}, so that value was kept.",
+  "@conflictReplacedBody": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      },
+      "field": {
+        "type": "String"
+      },
+      "local": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      },
+      "remote": {
+        "type": "String"
+      }
+    }
+  },
+  "btnReenter": "Re-enter mine",
+  "btnKeepNewer": "Keep newer",
+  "confReentered": "Your value was re-entered. It will sync soon.",
+  "confKeptNewer": "Kept the newer value.",
+  "conflictKeptTitle": "Two different values were entered",
+  "conflictKeptBody": "You set {subject}'s {field} to {local}. An older edit from {source} set it to {remote}. Your value was kept. Please check it.",
+  "@conflictKeptBody": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      },
+      "field": {
+        "type": "String"
+      },
+      "local": {
+        "type": "String"
+      },
+      "source": {
+        "type": "String"
+      },
+      "remote": {
+        "type": "String"
+      }
+    }
+  },
+  "btnKeepMine": "Keep mine",
+  "btnUseTheirs": "Use theirs",
+  "confKeptMine": "Kept your value.",
+  "confUsedTheirs": "Changed to {remote}. It will sync soon.",
+  "@confUsedTheirs": {
+    "placeholders": {
+      "remote": {
+        "type": "String"
+      }
+    }
+  },
+  "conflictDeletedTitle": "Something you edited was deleted elsewhere",
+  "conflictDeletedBody": "{source} deleted {subject}'s {noun}, but you had changed it. Your version was kept.",
+  "@conflictDeletedBody": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "subject": {
+        "type": "String"
+      },
+      "noun": {
+        "type": "String"
+      }
+    }
+  },
+  "btnDeleteIt": "Delete it",
+  "confKeptVersion": "Kept your version.",
+  "confDeleted": "Deleted. It will sync soon.",
+  "conflictMergedTitle": "Merged a change from {source}",
+  "@conflictMergedTitle": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "conflictMergedBody": "{subject}'s {noun} now has both edits.",
+  "@conflictMergedBody": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      },
+      "noun": {
+        "type": "String"
+      }
+    }
+  },
+  "nounVisit": "visit",
+  "nounVitals": "vitals",
+  "nounPatient": "record",
+  "nounHousehold": "household",
+  "fieldTemperature": "temperature",
+  "fieldSystolic": "systolic blood pressure",
+  "fieldDiastolic": "diastolic blood pressure",
+  "fieldVisitType": "visit type",
+  "fieldVisitTime": "visit time",
+  "fieldCompletionTime": "completion time",
+  "fieldPatientName": "patient name",
+  "fieldName": "name",
+  "fieldHousehold": "household",
+  "fieldHeadOfHousehold": "head of household",
+  "fieldLocation": "location",
+  "valueNothing": "nothing",
+  "profileTitle": "Profile",
+  "profileNurse": "Nurse {name}",
+  "@profileNurse": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "profileSubCounty": "{subCounty} sub-county",
+  "@profileSubCounty": {
+    "placeholders": {
+      "subCounty": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceName": "Device name",
+  "deviceNameHelp": "Other devices see this when your edits are merged.",
+  "languageTitle": "Language",
+  "langSystem": "Phone language",
+  "langEnglish": "English",
+  "langSwahili": "Kiswahili",
+  "progressOf": "{done} of {total}",
+  "@progressOf": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "startupErrorTitle": "This phone's secure storage couldn't be opened",
+  "startupErrorBody": "Your saved visits are protected by a key that can't be read right now. Try again. If the phone was just restarted, unlock it first.",
+  "startupRetry": "Try again",
+  "startupReset": "Reset this phone's data",
+  "startupResetTitle": "Reset this phone's data?",
+  "startupResetBody": "Changes that haven't been sent to the server will be lost. Synced visits will be downloaded again.",
+  "startupResetConfirm": "Reset",
+  "cancel": "Cancel",
+  "registerPatient": "Register patient",
+  "registerNewPatient": "Register new patient",
+  "fieldFullName": "Full name",
+  "fieldHouseholdHead": "Head of household",
+  "fieldHouseholdHeadHint": "Leave blank if same as patient",
+  "fieldLocation": "Location",
+  "savePatient": "Save patient",
+  "noPatientsYet": "No patients yet. Register your first patient to get started."
+}
