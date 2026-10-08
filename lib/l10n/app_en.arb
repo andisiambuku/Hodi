@@ -525,5 +525,21 @@
   "fieldHouseholdHeadHint": "Leave blank if same as patient",
   "fieldLocation": "Location",
   "savePatient": "Save patient",
-  "noPatientsYet": "No patients yet. Register your first patient to get started."
+  "noPatientsYet": "No patients yet. Register your first patient to get started.",
+  "fieldPhoneNumber": "Phone number",
+  "fieldPhoneNumberHint": "Optional",
+  "phoneNumberInvalid": "Enter a valid phone number, e.g. 0712 345 678",
+  "fieldAccountStatus": "Account status",
+  "statusActive": "Active",
+  "statusInactive": "Inactive",
+  "markInactiveTitle": "Mark {name} inactive?",
+  "markActiveTitle": "Mark {name} active?",
+  "markStatusBody": "This is saved on the phone and sent when you sync.",
+  "markInactiveAction": "Mark inactive",
+  "markActiveAction": "Mark active",
+  "patientStatusChanged": "{name} is now {status}.",
+  "noPhoneNumber": "No phone number",
+  "@markInactiveTitle": {"placeholders": {"name": {"type": "String"}}},
+  "@markActiveTitle": {"placeholders": {"name": {"type": "String"}}},
+  "@patientStatusChanged": {"placeholders": {"name": {"type": "String"}, "status": {"type": "String"}}}
 }

@@ -98,6 +98,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               ),
               const SizedBox(height: Tokens.s8),
               PrimaryButton(
+                label: 'Simulate patient status change from Clinic Tablet 2',
+                onPressed: () =>
+                    _inject(context, () => injectRemoteAccountStatus(ref, api)),
+              ),
+              const SizedBox(height: Tokens.s8),
+              PrimaryButton(
                 label: 'Simulate delete of a visit from Clinic Tablet 2',
                 onPressed: () =>
                     _inject(context, () => injectRemoteDelete(ref, api)),

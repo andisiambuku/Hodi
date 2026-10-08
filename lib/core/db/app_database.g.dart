@@ -565,6 +565,27 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
       'REFERENCES households (id)',
     ),
   );
+  static const VerificationMeta _phoneNumberMeta = const VerificationMeta(
+    'phoneNumber',
+  );
+  @override
+  late final GeneratedColumn<String> phoneNumber = GeneratedColumn<String>(
+    'phone_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  @override
+  late final GeneratedColumnWithTypeConverter<AccountStatus, String>
+  accountStatus = GeneratedColumn<String>(
+    'account_status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: Constant(AccountStatus.active.name),
+  ).withConverter<AccountStatus>($PatientsTable.$converteraccountStatus);
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -574,6 +595,8 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
     deleted,
     fullName,
     householdId,
+    phoneNumber,
+    accountStatus,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -632,6 +655,15 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
         ),
       );
     }
+    if (data.containsKey('phone_number')) {
+      context.handle(
+        _phoneNumberMeta,
+        phoneNumber.isAcceptableOrUnknown(
+          data['phone_number']!,
+          _phoneNumberMeta,
+        ),
+      );
+    }
     return context;
   }
 
@@ -671,6 +703,16 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
         DriftSqlType.string,
         data['${effectivePrefix}household_id'],
       ),
+      phoneNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phone_number'],
+      ),
+      accountStatus: $PatientsTable.$converteraccountStatus.fromSql(
+        attachedDatabase.typeMapping.read(
+          DriftSqlType.string,
+          data['${effectivePrefix}account_status'],
+        )!,
+      ),
     );
   }
 
@@ -681,6 +723,10 @@ class $PatientsTable extends Patients with TableInfo<$PatientsTable, Patient> {
 
   static JsonTypeConverter2<SyncState, String, String> $convertersyncState =
       const EnumNameConverter<SyncState>(SyncState.values);
+  static JsonTypeConverter2<AccountStatus, String, String>
+  $converteraccountStatus = const EnumNameConverter<AccountStatus>(
+    AccountStatus.values,
+  );
 }
 
 class Patient extends DataClass implements Insertable<Patient> {
@@ -697,6 +743,8 @@ class Patient extends DataClass implements Insertable<Patient> {
   final bool deleted;
   final String fullName;
   final String? householdId;
+  final String? phoneNumber;
+  final AccountStatus accountStatus;
   const Patient({
     required this.id,
     required this.syncState,
@@ -705,6 +753,8 @@ class Patient extends DataClass implements Insertable<Patient> {
     required this.deleted,
     required this.fullName,
     this.householdId,
+    this.phoneNumber,
+    required this.accountStatus,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -722,6 +772,14 @@ class Patient extends DataClass implements Insertable<Patient> {
     if (!nullToAbsent || householdId != null) {
       map['household_id'] = Variable<String>(householdId);
     }
+    if (!nullToAbsent || phoneNumber != null) {
+      map['phone_number'] = Variable<String>(phoneNumber);
+    }
+    {
+      map['account_status'] = Variable<String>(
+        $PatientsTable.$converteraccountStatus.toSql(accountStatus),
+      );
+    }
     return map;
   }
 
@@ -736,6 +794,10 @@ class Patient extends DataClass implements Insertable<Patient> {
       householdId: householdId == null && nullToAbsent
           ? const Value.absent()
           : Value(householdId),
+      phoneNumber: phoneNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phoneNumber),
+      accountStatus: Value(accountStatus),
     );
   }
 
@@ -754,6 +816,10 @@ class Patient extends DataClass implements Insertable<Patient> {
       deleted: serializer.fromJson<bool>(json['deleted']),
       fullName: serializer.fromJson<String>(json['fullName']),
       householdId: serializer.fromJson<String?>(json['householdId']),
+      phoneNumber: serializer.fromJson<String?>(json['phoneNumber']),
+      accountStatus: $PatientsTable.$converteraccountStatus.fromJson(
+        serializer.fromJson<String>(json['accountStatus']),
+      ),
     );
   }
   @override
@@ -769,6 +835,10 @@ class Patient extends DataClass implements Insertable<Patient> {
       'deleted': serializer.toJson<bool>(deleted),
       'fullName': serializer.toJson<String>(fullName),
       'householdId': serializer.toJson<String?>(householdId),
+      'phoneNumber': serializer.toJson<String?>(phoneNumber),
+      'accountStatus': serializer.toJson<String>(
+        $PatientsTable.$converteraccountStatus.toJson(accountStatus),
+      ),
     };
   }
 
@@ -780,6 +850,8 @@ class Patient extends DataClass implements Insertable<Patient> {
     bool? deleted,
     String? fullName,
     Value<String?> householdId = const Value.absent(),
+    Value<String?> phoneNumber = const Value.absent(),
+    AccountStatus? accountStatus,
   }) => Patient(
     id: id ?? this.id,
     syncState: syncState ?? this.syncState,
@@ -788,6 +860,8 @@ class Patient extends DataClass implements Insertable<Patient> {
     deleted: deleted ?? this.deleted,
     fullName: fullName ?? this.fullName,
     householdId: householdId.present ? householdId.value : this.householdId,
+    phoneNumber: phoneNumber.present ? phoneNumber.value : this.phoneNumber,
+    accountStatus: accountStatus ?? this.accountStatus,
   );
   Patient copyWithCompanion(PatientsCompanion data) {
     return Patient(
@@ -802,6 +876,12 @@ class Patient extends DataClass implements Insertable<Patient> {
       householdId: data.householdId.present
           ? data.householdId.value
           : this.householdId,
+      phoneNumber: data.phoneNumber.present
+          ? data.phoneNumber.value
+          : this.phoneNumber,
+      accountStatus: data.accountStatus.present
+          ? data.accountStatus.value
+          : this.accountStatus,
     );
   }
 
@@ -814,7 +894,9 @@ class Patient extends DataClass implements Insertable<Patient> {
           ..write('serverVersion: $serverVersion, ')
           ..write('deleted: $deleted, ')
           ..write('fullName: $fullName, ')
-          ..write('householdId: $householdId')
+          ..write('householdId: $householdId, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('accountStatus: $accountStatus')
           ..write(')'))
         .toString();
   }
@@ -828,6 +910,8 @@ class Patient extends DataClass implements Insertable<Patient> {
     deleted,
     fullName,
     householdId,
+    phoneNumber,
+    accountStatus,
   );
   @override
   bool operator ==(Object other) =>
@@ -839,7 +923,9 @@ class Patient extends DataClass implements Insertable<Patient> {
           other.serverVersion == this.serverVersion &&
           other.deleted == this.deleted &&
           other.fullName == this.fullName &&
-          other.householdId == this.householdId);
+          other.householdId == this.householdId &&
+          other.phoneNumber == this.phoneNumber &&
+          other.accountStatus == this.accountStatus);
 }
 
 class PatientsCompanion extends UpdateCompanion<Patient> {
@@ -850,6 +936,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
   final Value<bool> deleted;
   final Value<String> fullName;
   final Value<String?> householdId;
+  final Value<String?> phoneNumber;
+  final Value<AccountStatus> accountStatus;
   final Value<int> rowid;
   const PatientsCompanion({
     this.id = const Value.absent(),
@@ -859,6 +947,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     this.deleted = const Value.absent(),
     this.fullName = const Value.absent(),
     this.householdId = const Value.absent(),
+    this.phoneNumber = const Value.absent(),
+    this.accountStatus = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   PatientsCompanion.insert({
@@ -869,6 +959,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     this.deleted = const Value.absent(),
     required String fullName,
     this.householdId = const Value.absent(),
+    this.phoneNumber = const Value.absent(),
+    this.accountStatus = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        hlc = Value(hlc),
@@ -881,6 +973,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     Expression<bool>? deleted,
     Expression<String>? fullName,
     Expression<String>? householdId,
+    Expression<String>? phoneNumber,
+    Expression<String>? accountStatus,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -891,6 +985,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
       if (deleted != null) 'deleted': deleted,
       if (fullName != null) 'full_name': fullName,
       if (householdId != null) 'household_id': householdId,
+      if (phoneNumber != null) 'phone_number': phoneNumber,
+      if (accountStatus != null) 'account_status': accountStatus,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -903,6 +999,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     Value<bool>? deleted,
     Value<String>? fullName,
     Value<String?>? householdId,
+    Value<String?>? phoneNumber,
+    Value<AccountStatus>? accountStatus,
     Value<int>? rowid,
   }) {
     return PatientsCompanion(
@@ -913,6 +1011,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
       deleted: deleted ?? this.deleted,
       fullName: fullName ?? this.fullName,
       householdId: householdId ?? this.householdId,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      accountStatus: accountStatus ?? this.accountStatus,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -943,6 +1043,14 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
     if (householdId.present) {
       map['household_id'] = Variable<String>(householdId.value);
     }
+    if (phoneNumber.present) {
+      map['phone_number'] = Variable<String>(phoneNumber.value);
+    }
+    if (accountStatus.present) {
+      map['account_status'] = Variable<String>(
+        $PatientsTable.$converteraccountStatus.toSql(accountStatus.value),
+      );
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -959,6 +1067,8 @@ class PatientsCompanion extends UpdateCompanion<Patient> {
           ..write('deleted: $deleted, ')
           ..write('fullName: $fullName, ')
           ..write('householdId: $householdId, ')
+          ..write('phoneNumber: $phoneNumber, ')
+          ..write('accountStatus: $accountStatus, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -4656,6 +4766,8 @@ typedef $$PatientsTableCreateCompanionBuilder =
       Value<bool> deleted,
       required String fullName,
       Value<String?> householdId,
+      Value<String?> phoneNumber,
+      Value<AccountStatus> accountStatus,
       Value<int> rowid,
     });
 typedef $$PatientsTableUpdateCompanionBuilder =
@@ -4667,6 +4779,8 @@ typedef $$PatientsTableUpdateCompanionBuilder =
       Value<bool> deleted,
       Value<String> fullName,
       Value<String?> householdId,
+      Value<String?> phoneNumber,
+      Value<AccountStatus> accountStatus,
       Value<int> rowid,
     });
 
@@ -4749,6 +4863,17 @@ class $$PatientsTableFilterComposer
   ColumnFilters<String> get fullName => $composableBuilder(
     column: $table.fullName,
     builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get phoneNumber => $composableBuilder(
+    column: $table.phoneNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnWithTypeConverterFilters<AccountStatus, AccountStatus, String>
+  get accountStatus => $composableBuilder(
+    column: $table.accountStatus,
+    builder: (column) => ColumnWithTypeConverterFilters(column),
   );
 
   $$HouseholdsTableFilterComposer get householdId {
@@ -4839,6 +4964,16 @@ class $$PatientsTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get phoneNumber => $composableBuilder(
+    column: $table.phoneNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get accountStatus => $composableBuilder(
+    column: $table.accountStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   $$HouseholdsTableOrderingComposer get householdId {
     final $$HouseholdsTableOrderingComposer composer = $composerBuilder(
       composer: this,
@@ -4891,6 +5026,17 @@ class $$PatientsTableAnnotationComposer
 
   GeneratedColumn<String> get fullName =>
       $composableBuilder(column: $table.fullName, builder: (column) => column);
+
+  GeneratedColumn<String> get phoneNumber => $composableBuilder(
+    column: $table.phoneNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumnWithTypeConverter<AccountStatus, String> get accountStatus =>
+      $composableBuilder(
+        column: $table.accountStatus,
+        builder: (column) => column,
+      );
 
   $$HouseholdsTableAnnotationComposer get householdId {
     final $$HouseholdsTableAnnotationComposer composer = $composerBuilder(
@@ -4976,6 +5122,8 @@ class $$PatientsTableTableManager
                 Value<bool> deleted = const Value.absent(),
                 Value<String> fullName = const Value.absent(),
                 Value<String?> householdId = const Value.absent(),
+                Value<String?> phoneNumber = const Value.absent(),
+                Value<AccountStatus> accountStatus = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PatientsCompanion(
                 id: id,
@@ -4985,6 +5133,8 @@ class $$PatientsTableTableManager
                 deleted: deleted,
                 fullName: fullName,
                 householdId: householdId,
+                phoneNumber: phoneNumber,
+                accountStatus: accountStatus,
                 rowid: rowid,
               ),
           createCompanionCallback:
@@ -4996,6 +5146,8 @@ class $$PatientsTableTableManager
                 Value<bool> deleted = const Value.absent(),
                 required String fullName,
                 Value<String?> householdId = const Value.absent(),
+                Value<String?> phoneNumber = const Value.absent(),
+                Value<AccountStatus> accountStatus = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => PatientsCompanion.insert(
                 id: id,
@@ -5005,6 +5157,8 @@ class $$PatientsTableTableManager
                 deleted: deleted,
                 fullName: fullName,
                 householdId: householdId,
+                phoneNumber: phoneNumber,
+                accountStatus: accountStatus,
                 rowid: rowid,
               ),
           withReferenceMapper: (p0) => p0

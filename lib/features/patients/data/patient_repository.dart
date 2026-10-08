@@ -33,11 +33,42 @@ class PatientRepository {
             ..orderBy([(p) => OrderingTerm.asc(p.fullName)]))
           .watch();
 
+  /// Marks a patient active or inactive. Queued as its own edit so it merges
+  /// field by field with whatever another nurse changed while offline.
+  Future<void> setAccountStatus(String id, AccountStatus status) async {
+    final stamp = _clock.next();
+    await _db.transaction(() async {
+      final patient = await (_db.select(
+        _db.patients,
+      )..where((p) => p.id.equals(id))).getSingle();
+      if (patient.accountStatus == status) return;
+      await (_db.update(_db.patients)..where((p) => p.id.equals(id))).write(
+        PatientsCompanion(
+          accountStatus: Value(status),
+          syncState: const Value(SyncState.pending),
+          hlc: Value(stamp),
+        ),
+      );
+      await _outbox.enqueue(
+        entityType: 'patient',
+        entityId: id,
+        op: ChangeOp.edited,
+        label: 'Patient: ${patient.fullName}',
+        fields: {'accountStatus': status.name},
+        hlc: stamp,
+        now: _now(),
+      );
+    });
+    _nudge();
+  }
+
   /// Saves a new household and patient. The household is queued first so the
   /// server has it before the patient that points at it.
   Future<String> register(NewPatient input) async {
     if (!input.isValid) {
-      throw ArgumentError('A patient needs a name and a location.');
+      throw ArgumentError(
+        'A patient needs a name, a location and a valid phone number.',
+      );
     }
     const uuid = Uuid();
     final householdId = uuid.v7();
@@ -73,6 +104,8 @@ class PatientRepository {
               hlc: patientStamp,
               fullName: input.fullName,
               householdId: Value(householdId),
+              phoneNumber: Value(input.phoneNumber),
+              accountStatus: Value(input.accountStatus),
               syncState: const Value(SyncState.pending),
             ),
           );
@@ -81,7 +114,12 @@ class PatientRepository {
         entityId: patientId,
         op: ChangeOp.added,
         label: 'Patient: ${input.fullName}',
-        fields: {'fullName': input.fullName, 'householdId': householdId},
+        fields: {
+          'fullName': input.fullName,
+          'householdId': householdId,
+          if (input.phoneNumber != null) 'phoneNumber': input.phoneNumber,
+          'accountStatus': input.accountStatus.name,
+        },
         hlc: patientStamp,
         now: _now(),
       );

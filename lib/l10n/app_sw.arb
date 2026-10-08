@@ -178,5 +178,18 @@
   "fieldHouseholdHeadHint": "Acha wazi ikiwa ni mgonjwa mwenyewe",
   "fieldLocation": "Mahali",
   "savePatient": "Hifadhi mgonjwa",
-  "noPatientsYet": "Hakuna wagonjwa bado. Sajili mgonjwa wako wa kwanza kuanza."
+  "noPatientsYet": "Hakuna wagonjwa bado. Sajili mgonjwa wako wa kwanza kuanza.",
+  "fieldPhoneNumber": "Namba ya simu",
+  "fieldPhoneNumberHint": "Si lazima",
+  "phoneNumberInvalid": "Weka namba sahihi ya simu, mf. 0712 345 678",
+  "fieldAccountStatus": "Hali ya akaunti",
+  "statusActive": "Hai",
+  "statusInactive": "Haifanyi kazi",
+  "markInactiveTitle": "Weka {name} kama hafanyi kazi?",
+  "markActiveTitle": "Weka {name} kama yuko hai?",
+  "markStatusBody": "Hii inahifadhiwa kwenye simu na kutumwa unaposawazisha.",
+  "markInactiveAction": "Weka haifanyi kazi",
+  "markActiveAction": "Weka hai",
+  "patientStatusChanged": "{name} sasa ni {status}.",
+  "noPhoneNumber": "Hakuna namba ya simu"
 }

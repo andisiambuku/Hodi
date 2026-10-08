@@ -691,4 +691,51 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noPatientsYet =>
       'No patients yet. Register your first patient to get started.';
+
+  @override
+  String get fieldPhoneNumber => 'Phone number';
+
+  @override
+  String get fieldPhoneNumberHint => 'Optional';
+
+  @override
+  String get phoneNumberInvalid =>
+      'Enter a valid phone number, e.g. 0712 345 678';
+
+  @override
+  String get fieldAccountStatus => 'Account status';
+
+  @override
+  String get statusActive => 'Active';
+
+  @override
+  String get statusInactive => 'Inactive';
+
+  @override
+  String markInactiveTitle(String name) {
+    return 'Mark $name inactive?';
+  }
+
+  @override
+  String markActiveTitle(String name) {
+    return 'Mark $name active?';
+  }
+
+  @override
+  String get markStatusBody =>
+      'This is saved on the phone and sent when you sync.';
+
+  @override
+  String get markInactiveAction => 'Mark inactive';
+
+  @override
+  String get markActiveAction => 'Mark active';
+
+  @override
+  String patientStatusChanged(String name, String status) {
+    return '$name is now $status.';
+  }
+
+  @override
+  String get noPhoneNumber => 'No phone number';
 }

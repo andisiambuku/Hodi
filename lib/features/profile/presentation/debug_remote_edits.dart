@@ -36,6 +36,28 @@ Future<String> injectRemoteVisitType(WidgetRef ref, FakeApiClient api) async {
   return 'Queued a visit type edit from $_tablet. Sync to receive it.';
 }
 
+/// Debug only: another tablet flips the first patient's account status, to
+/// try an offline status conflict (mark one inactive here first, offline).
+Future<String> injectRemoteAccountStatus(
+  WidgetRef ref,
+  FakeApiClient api,
+) async {
+  final db = ref.read(databaseProvider);
+  final patients = await db.select(db.patients).get();
+  if (patients.isEmpty) return 'No patients on the phone.';
+  final p = patients.first;
+  final flipped = p.accountStatus == AccountStatus.active
+      ? AccountStatus.inactive
+      : AccountStatus.active;
+  api.injectRemoteEdit(
+    entityType: 'patient',
+    entityId: p.id,
+    fields: {'accountStatus': flipped.name},
+    source: _tablet,
+  );
+  return 'Queued ${flipped.name} for ${p.fullName} from $_tablet. Sync to receive it.';
+}
+
 /// Debug only: another tablet deletes the first visit.
 Future<String> injectRemoteDelete(WidgetRef ref, FakeApiClient api) async {
   final db = ref.read(databaseProvider);

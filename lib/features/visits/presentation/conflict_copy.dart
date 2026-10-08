@@ -37,6 +37,8 @@ String formatConflictValue(
 ) {
   final v = jsonDecode(json);
   if (v == null) return l.valueNothing;
+  if (v == 'active') return l.statusActive;
+  if (v == 'inactive') return l.statusInactive;
   var text = v.toString();
   if (v is String) {
     final d = DateTime.tryParse(v);
